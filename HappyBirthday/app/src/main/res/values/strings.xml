@@ -2,7 +2,7 @@
     <string name="app_name">Happy Birthday</string>
 
     <!--details screen strings-->
-    <string name="welcome_title">Welcome to Nanit\'s Happy Birthday app!</string>
+    <string name="welcome_title">Happy Birthday</string>
     <string name="fill_out_form_text">Please fill out the form:</string>
     <string name="name">Name</string>
     <string name="birthday">Birthday</string>
