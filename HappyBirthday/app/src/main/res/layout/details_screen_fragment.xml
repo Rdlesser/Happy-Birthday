@@ -20,9 +20,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fill_out_form_text"
-        app:layout_constraintTop_toBottomOf="@id/welcome_textview"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_textview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="@dimen/fill_out_form_textview_top_margin" />
+
+    <LinearLayout
+        android:id="@+id/form_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fill_out_form_textview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:hint="@string/name"
+            android:enabled="false"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:hint="@string/birthday"
+            android:enabled="false"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:hint="@string/picture"
+            android:enabled="false"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/show_birthday_button_text"
+            android:enabled="false"/>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
