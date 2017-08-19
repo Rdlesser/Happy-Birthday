@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="fill_out_form_textview_top_margin">25dp</dimen>
+
+</resources>

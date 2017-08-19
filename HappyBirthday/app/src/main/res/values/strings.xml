@@ -2,5 +2,6 @@
     <string name="app_name">Happy Birthday</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="welcome_text">Welcome to Nanit\'s Happy Birthday app!</string>
+    <string name="welcome_title">Welcome to Nanit\'s Happy Birthday app!</string>
+    <string name="fill_out_form_text">Please fill out the form:</string>
 </resources>

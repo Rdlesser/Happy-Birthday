@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.nanit.robertlesser.happybirthday.MainActivity">
 
-    <fragment android:name="com.nanit.robertlesser.happybirthday.HBWelcomeFormFragment"
+    <fragment android:name="com.nanit.robertlesser.happybirthday.DetailsScreenFragment"
         android:id="@+id/welcome_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

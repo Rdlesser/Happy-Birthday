@@ -1,0 +1,28 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.nanit.robertlesser.happybirthday.DetailsScreenFragment">
+
+    <TextView
+        android:id="@+id/welcome_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/fill_out_form_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fill_out_form_text"
+        app:layout_constraintTop_toBottomOf="@id/welcome_textview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/fill_out_form_textview_top_margin" />
+
+</android.support.constraint.ConstraintLayout>
