@@ -39,28 +39,28 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:hint="@string/name"
-            android:enabled="false"/>
+            android:enabled="true"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:hint="@string/birthday"
-            android:enabled="false"/>
+            android:enabled="true"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:hint="@string/picture"
-            android:enabled="false"/>
+            android:enabled="true"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/show_birthday_button_text"
-            android:enabled="false"/>
+            android:enabled="true"/>
 
     </LinearLayout>
 
