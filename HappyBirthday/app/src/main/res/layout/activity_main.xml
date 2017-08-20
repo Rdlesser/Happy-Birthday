@@ -10,6 +10,7 @@
     <fragment android:name="com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment"
         android:id="@+id/details_screen_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:tag="details_screen_fragment"/>
 
 </android.support.constraint.ConstraintLayout>

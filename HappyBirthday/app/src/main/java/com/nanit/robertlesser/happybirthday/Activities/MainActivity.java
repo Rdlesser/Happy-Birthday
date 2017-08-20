@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            HappyBirthdayFragment fragment = (HappyBirthdayFragment) getFragmentManager().
+            HappyBirthdayFragment fragment = (HappyBirthdayFragment) getSupportFragmentManager().
                     findFragmentById(R.id.details_screen_fragment);
             if (requestCode == SELECT_FILE) {
                 fragment.onSelectFromGalleryResult(data);
