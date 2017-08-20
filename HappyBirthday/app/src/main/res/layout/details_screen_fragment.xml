@@ -50,18 +50,27 @@
             android:hint="@string/birthday"
             android:enabled="true"/>
 
-        <EditText
-            android:id="@+id/picture_view"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/picture_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textAlignment="center"
-            android:hint="@string/picture"
+            android:text="@string/picture"
             android:enabled="true"/>
+
+        <ImageView
+            android:id="@+id/picture_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_camera"/>
 
         <Button
             android:id="@+id/show_birthday_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:text="@string/show_birthday_button_text"
             android:enabled="true"/>

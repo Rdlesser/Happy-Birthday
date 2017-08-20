@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="picture_options">
-        <item>Select from gallery</item>
-        <item>Take a photo</item>
-        <item>Cancel</item>
+        <item>@string/gallery_select</item>
+        <item>@string/take_photo</item>
+        <item>@string/cancel</item>
     </string-array>
 
 </resources>

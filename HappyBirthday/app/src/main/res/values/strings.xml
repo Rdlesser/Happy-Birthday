@@ -9,6 +9,11 @@
     <string name="picture">Choose picture</string>
     <string name="show_birthday_button_text">Show birthday screen</string>
 
+    <!--picture options-->
+    <string name="gallery_select">Select from gallery</string>
+    <string name="take_photo">Take a photo</string>
+    <string name="cancel">Cancel</string>
+
     <!--permissions strings-->
     <string name="permission_necessary_title">Permission necessary</string>
     <string name="permission_necessary_text">External storage permission is necessary</string>

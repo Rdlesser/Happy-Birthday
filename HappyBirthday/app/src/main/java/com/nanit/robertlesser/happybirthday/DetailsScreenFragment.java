@@ -1,7 +1,11 @@
 package com.nanit.robertlesser.happybirthday;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -24,14 +28,17 @@ import java.util.Locale;
 public class DetailsScreenFragment extends Fragment implements View.OnFocusChangeListener,
         View.OnClickListener{
 
+    private View detailsView;
     private EditText etName;
     private EditText etBirthday;
-    private EditText etPicture;
+    private Button btnPicture;
     private Button btnShowBirthday;
 
     private DatePickerDialog birthdayDatePickerDialog;
+    String userChosenTask;
 
     private SimpleDateFormat dateFormat;
+    private Context mainActivity;
 
 
     public DetailsScreenFragment() {
@@ -42,18 +49,25 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.mainActivity = getContext();
         // Inflate the layout for this fragment
-        View detailsView = inflater.inflate(R.layout.details_screen_fragment, container, false);
-        etName = detailsView.findViewById(R.id.name_view);
-        etBirthday = detailsView.findViewById(R.id.birthday_view);
-        etPicture = detailsView.findViewById(R.id.picture_view);
-        btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
+        detailsView = inflater.inflate(R.layout.details_screen_fragment, container, false);
+
+        findViewsById();
 
         dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
-
         setBirthdayField();
 
         return detailsView;
+    }
+
+    private void findViewsById() {
+        etName = detailsView.findViewById(R.id.name_view);
+        etBirthday = detailsView.findViewById(R.id.birthday_view);
+        btnPicture = detailsView.findViewById(R.id.picture_button);
+        btnPicture.setOnClickListener(this);
+        
+        btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
     }
 
     private void setBirthdayField() {
@@ -99,6 +113,46 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             case R.id.birthday_view:
                 birthdayDatePickerDialog.show();
                 break;
+
+            case R.id.picture_button:
+                selectImage();
         }
+    }
+
+    private void selectImage() {
+
+        final String[] pictureOptions = mainActivity.getResources().
+                getStringArray(R.array.picture_options);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle(R.string.picture);
+        builder.setItems(pictureOptions, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int item) {
+                boolean hasPermission = Utility.checkPermission(mainActivity);
+                if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
+                    userChosenTask = getString(R.string.gallery_select);
+                    if (hasPermission) {
+                        startGalerryIntent();
+                    }
+                }
+                else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
+                    userChosenTask = getString(R.string.take_photo);
+                    if (hasPermission){
+                        startCameraIntent();
+                    }
+                }
+                else if (pictureOptions[item].equals(getString(R.string.cancel))) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
+
+    }
+
+    private void startCameraIntent() {
+    }
+
+    private void startGalerryIntent() {
     }
 }
