@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -15,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
+import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
@@ -28,7 +30,7 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class DetailsScreenFragment extends Fragment implements View.OnFocusChangeListener,
-        View.OnClickListener{
+        View.OnClickListener, HappyBirthdayFragment {
 
     private View detailsView;
     private EditText etName;
@@ -151,4 +153,13 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     }
 
+    @Override
+    public void onSelectFromGalleryResult(Intent intent) {
+
+    }
+
+    @Override
+    public void onCaptureImageResult(Intent intent) {
+
+    }
 }

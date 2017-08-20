@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
@@ -31,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChosenTask.equals("Take Photo"))
-                        startCameraIntent();
-                    else if(userChosenTask.equals("Choose from Library"))
+                    if(userChosenTask.equals(getString(R.string.gallery_select)))
                         startGalleryIntent();
+                    else if(userChosenTask.equals(getString(R.string.take_photo)))
+                        startCameraIntent();
                 } else {
                     //code for deny
                 }
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            Fragment fragment = getFragmentManager().findFragmentById(R.id.details_screen_fragment);
+            HappyBirthdayFragment fragment = (HappyBirthdayFragment) getFragmentManager().
+                    findFragmentById(R.id.details_screen_fragment);
             if (requestCode == SELECT_FILE) {
                 fragment.onSelectFromGalleryResult(data);
             }
