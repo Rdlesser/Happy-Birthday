@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -14,16 +16,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static android.R.attr.data;
 
 
 /**
@@ -36,6 +42,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     private EditText etName;
     private EditText etBirthday;
     private Button btnPicture;
+    private ImageView ivPictureImage;
     private Button btnShowBirthday;
 
     private DatePickerDialog birthdayDatePickerDialog;
@@ -155,11 +162,21 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     @Override
     public void onSelectFromGalleryResult(Intent intent) {
+        Bitmap bitmap = null;
+        if (intent != null){
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), intent.getData());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ivPictureImage.setImageBitmap(bitmap);
 
     }
 
     @Override
     public void onCaptureImageResult(Intent intent) {
-
     }
 }
