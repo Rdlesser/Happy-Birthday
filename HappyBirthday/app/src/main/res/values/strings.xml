@@ -6,6 +6,10 @@
     <string name="fill_out_form_text">Please fill out the form:</string>
     <string name="name">Name</string>
     <string name="birthday">Birthday</string>
-    <string name="picture">Picture</string>
+    <string name="picture">Choose picture</string>
     <string name="show_birthday_button_text">Show birthday screen</string>
+
+    <!--permissions strings-->
+    <string name="permission_necessary_title">Permission necessary</string>
+    <string name="permission_necessary_text">External storage permission is necessary</string>
 </resources>

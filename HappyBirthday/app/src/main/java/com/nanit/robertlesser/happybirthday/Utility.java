@@ -32,8 +32,8 @@ public class Utility {
 
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
                     alertBuilder.setCancelable(true);
-                    alertBuilder.setTitle("Permission necessary");
-                    alertBuilder.setMessage("External storage permission is necessary");
+                    alertBuilder.setTitle(R.string.permission_necessary_title);
+                    alertBuilder.setMessage(R.string.permission_necessary_text);
                     alertBuilder.setPositiveButton(android.R.string.yes,
                             new DialogInterface.OnClickListener() {
 
