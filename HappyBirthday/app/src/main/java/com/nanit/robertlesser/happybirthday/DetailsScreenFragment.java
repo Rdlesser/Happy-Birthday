@@ -1,12 +1,13 @@
 package com.nanit.robertlesser.happybirthday;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -132,13 +133,13 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
                 if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
                     userChosenTask = getString(R.string.gallery_select);
                     if (hasPermission) {
-                        startGalerryIntent();
+                        ((MainActivity) mainActivity).startGalleryIntent();
                     }
                 }
                 else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
                     userChosenTask = getString(R.string.take_photo);
                     if (hasPermission){
-                        startCameraIntent();
+                        ((MainActivity) mainActivity).startCameraIntent();
                     }
                 }
                 else if (pictureOptions[item].equals(getString(R.string.cancel))) {
@@ -150,9 +151,4 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     }
 
-    private void startCameraIntent() {
-    }
-
-    private void startGalerryIntent() {
-    }
 }
