@@ -36,10 +36,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     private Button btnShowBirthday;
 
     private DatePickerDialog birthdayDatePickerDialog;
-    String userChosenTask;
 
     private SimpleDateFormat dateFormat;
-    private Context mainActivity;
+    private MainActivity mainActivity;
 
 
     public DetailsScreenFragment() {
@@ -50,7 +49,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.mainActivity = getContext();
+        this.mainActivity = (MainActivity) getContext();
         // Inflate the layout for this fragment
         detailsView = inflater.inflate(R.layout.details_screen_fragment, container, false);
 
@@ -131,15 +130,15 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             public void onClick(DialogInterface dialogInterface, int item) {
                 boolean hasPermission = Utility.checkPermission(mainActivity);
                 if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
-                    userChosenTask = getString(R.string.gallery_select);
+                    mainActivity.setUserChosenTask(getString(R.string.gallery_select));
                     if (hasPermission) {
-                        ((MainActivity) mainActivity).startGalleryIntent();
+                        mainActivity.startGalleryIntent();
                     }
                 }
                 else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
-                    userChosenTask = getString(R.string.take_photo);
+                    mainActivity.setUserChosenTask(getString(R.string.take_photo));
                     if (hasPermission){
-                        ((MainActivity) mainActivity).startCameraIntent();
+                        mainActivity.startCameraIntent();
                     }
                 }
                 else if (pictureOptions[item].equals(getString(R.string.cancel))) {
