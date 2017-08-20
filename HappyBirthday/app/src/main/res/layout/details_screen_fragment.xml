@@ -35,6 +35,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/name_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -42,6 +43,7 @@
             android:enabled="true"/>
 
         <EditText
+            android:id="@+id/birthday_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -49,6 +51,7 @@
             android:enabled="true"/>
 
         <EditText
+            android:id="@+id/picture_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -56,6 +59,7 @@
             android:enabled="true"/>
 
         <Button
+            android:id="@+id/show_birthday_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
