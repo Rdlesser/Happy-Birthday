@@ -1,4 +1,4 @@
-package com.nanit.robertlesser.happybirthday;
+package com.nanit.robertlesser.happybirthday.Utilities;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
+import com.nanit.robertlesser.happybirthday.R;
 
 /**
  * Created by robertlesser on 20/08/2017.

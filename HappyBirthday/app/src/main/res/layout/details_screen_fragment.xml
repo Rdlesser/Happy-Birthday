@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.nanit.robertlesser.happybirthday.DetailsScreenFragment">
+    tools:context="com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment">
 
     <TextView
         android:id="@+id/welcome_textview"

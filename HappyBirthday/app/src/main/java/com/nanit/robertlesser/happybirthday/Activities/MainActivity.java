@@ -1,11 +1,16 @@
-package com.nanit.robertlesser.happybirthday;
+package com.nanit.robertlesser.happybirthday.Activities;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.nanit.robertlesser.happybirthday.R;
+import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +40,21 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Fragment fragment = getFragmentManager().findFragmentById(R.id.details_screen_fragment);
+            if (requestCode == SELECT_FILE) {
+                fragment.onSelectFromGalleryResult(data);
+            }
+            else if (requestCode == REQUEST_CAMERA) {
+                fragment.onCaptureImageResult(data);
+            }
+        }
+
     }
 
     public void startCameraIntent() {
