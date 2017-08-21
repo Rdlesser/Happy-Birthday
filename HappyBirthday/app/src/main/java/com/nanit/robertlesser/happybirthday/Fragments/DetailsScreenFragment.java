@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,7 +52,7 @@ import static android.R.attr.width;
  * A simple {@link Fragment} subclass.
  */
 public class DetailsScreenFragment extends Fragment implements View.OnFocusChangeListener,
-        View.OnClickListener, HappyBirthdayFragment {
+        View.OnClickListener, HappyBirthdayFragment, TextWatcher {
 
     private View detailsView;
     private EditText etName;
@@ -90,7 +92,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     private void findViewsById() {
         etName = detailsView.findViewById(R.id.name_view);
+        etName.addTextChangedListener(this);
         etBirthday = detailsView.findViewById(R.id.birthday_view);
+        etBirthday.addTextChangedListener(this);
         btnPicture = detailsView.findViewById(R.id.picture_button);
         btnPicture.setOnClickListener(this);
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
@@ -247,5 +251,26 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
                 setupUI(innerView);
             }
         }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        enableShowBirthdayButtonIfReady();
+    }
+
+    private void enableShowBirthdayButtonIfReady() {
+        boolean isReady = (etName.getText().length() > 0) &&
+                (etBirthday.getText().length() > 0);
+        btnShowBirthday.setEnabled(isReady);
     }
 }

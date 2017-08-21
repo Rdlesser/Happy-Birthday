@@ -73,7 +73,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:text="@string/show_birthday_button_text"
-            android:enabled="true"/>
+            android:enabled="false"/>
 
     </LinearLayout>
 
