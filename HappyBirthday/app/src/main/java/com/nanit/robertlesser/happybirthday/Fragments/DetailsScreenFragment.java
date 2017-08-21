@@ -81,6 +81,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         etBirthday = detailsView.findViewById(R.id.birthday_view);
         btnPicture = detailsView.findViewById(R.id.picture_button);
         btnPicture.setOnClickListener(this);
+        ivPictureImage = detailsView.findViewById(R.id.picture_image);
         
         btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
     }
