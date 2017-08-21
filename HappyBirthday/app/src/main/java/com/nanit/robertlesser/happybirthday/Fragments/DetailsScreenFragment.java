@@ -6,6 +6,8 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -29,11 +31,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.R.attr.bitmap;
 import static android.R.attr.data;
 
 
@@ -55,6 +59,8 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     private SimpleDateFormat dateFormat;
     private MainActivity mainActivity;
 
+    private Bitmap bitmap;
+
 
     public DetailsScreenFragment() {
         // Required empty public constructor
@@ -66,7 +72,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
                              Bundle savedInstanceState) {
         this.mainActivity = (MainActivity) getContext();
         // Inflate the layout for this fragment
-        detailsView = inflater.inflate(R.layout.details_screen_fragment, container, false);
+        detailsView = inflater.inflate(R.layout.fragment_details_screen, container, false);
 
         findViewsById();
 
@@ -184,23 +190,26 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     @Override
     public void onCaptureImageResult(Intent intent) {
-        Bitmap thumbnail = (Bitmap) intent.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        FileOutputStream outputStream;
+        InputStream stream = null;
         try {
-            destination.createNewFile();
-            outputStream = new FileOutputStream(destination);
-            outputStream.write(bytes.toByteArray());
-            outputStream.close();
+            if (bitmap != null) {
+                bitmap.recycle();
+            }
+            stream = mainActivity.getContentResolver().openInputStream(intent.getData());
+            bitmap = BitmapFactory.decodeStream(stream);
+
+            ivPictureImage.setImageBitmap(bitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        ivPictureImage.setImageBitmap(thumbnail);
 
     }
 }
