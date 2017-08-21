@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +42,7 @@ import java.util.Locale;
 
 import static android.R.attr.bitmap;
 import static android.R.attr.data;
+import static android.R.attr.width;
 
 
 /**
@@ -88,7 +92,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         btnPicture = detailsView.findViewById(R.id.picture_button);
         btnPicture.setOnClickListener(this);
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
-        
+
         btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
     }
 
@@ -198,7 +202,15 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             stream = mainActivity.getContentResolver().openInputStream(intent.getData());
             bitmap = BitmapFactory.decodeStream(stream);
 
-            ivPictureImage.setImageBitmap(bitmap);
+            Matrix matrix = new Matrix();
+
+            matrix.postRotate(90);
+
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
+
+            Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
+
+            ivPictureImage.setImageBitmap(rotatedBitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
