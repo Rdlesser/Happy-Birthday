@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -79,6 +80,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         detailsView = inflater.inflate(R.layout.fragment_details_screen, container, false);
 
         findViewsById();
+        setupUI(detailsView);
 
         dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         setBirthdayField();
@@ -125,8 +127,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             case R.id.birthday_view:
                 if (b) {
                     birthdayDatePickerDialog.show();
-                    break;
+
                 }
+                break;
         }
 
     }
@@ -223,5 +226,26 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             }
         }
 
+    }
+
+    public void setupUI(View view) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    Utility.hideSoftKeyboard(mainActivity);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
     }
 }
