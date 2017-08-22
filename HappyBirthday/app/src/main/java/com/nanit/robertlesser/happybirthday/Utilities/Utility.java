@@ -1,6 +1,5 @@
 package com.nanit.robertlesser.happybirthday.Utilities;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by robertlesser on 20/08/2017.
@@ -22,9 +23,27 @@ public class Utility {
     public static boolean checkPermission(final Context context, String[] permissions) {
 
         MainActivity mainActivity = (MainActivity) context;
-        mainActivity.setPermissions(permissions);
-        mainActivity.setMagicalPermissions(new MagicalPermissions(mainActivity, permissions));
-        return true;
+        ArrayList<String> activePermissions = mainActivity.getActivePermissions();
+        ArrayList<String> missingPermissions = new ArrayList<>();
+
+        // Narrow down the permissions to only the missing ones
+        for (String permission : permissions) {
+            if (!activePermissions.contains(permission)) {
+                missingPermissions.add(permission);
+            }
+        }
+
+        //Now ask for the missing permissions
+        String[] askingPermissions = missingPermissions.toArray(permissions);
+        MagicalPermissions newPermissions = new MagicalPermissions(mainActivity, askingPermissions);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        };
+        newPermissions.askPermissions(runnable);
+        return false;
     }
 
     public static void hideSoftKeyboard(Activity activity) {

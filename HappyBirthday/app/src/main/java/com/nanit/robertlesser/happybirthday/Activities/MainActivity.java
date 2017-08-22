@@ -15,13 +15,14 @@ import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
 
-    private String[] permissions;
+    ArrayList<String> activePermissions;
     private MagicalPermissions magicalPermissions;
     private MagicalCamera magicalCamera;
 
@@ -31,27 +32,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        activePermissions = new ArrayList<>();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-//        switch (requestCode) {
-//            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    if(userChosenTask.equals(getString(R.string.gallery_select)))
-//                        startGalleryIntent();
-//                    else if(userChosenTask.equals(getString(R.string.take_photo)))
-//                        startCameraIntent();
-//                } else {
-//                    //code for deny
-//                }
-//                break;
-//        }
         Map<String, Boolean> map = magicalPermissions.permissionResult(requestCode, permissions, grantResults);
+        boolean allGranted = true;
         for (String permission : map.keySet()) {
-            Log.d("PERMISSIONS", permission + " was: " + map.get(permission));
-
+            if (map.get(permission)) {
+                activePermissions.add(permission);
+            }
+            else {
+                allGranted = map.get(permission);
+            }
+        }
+        if (allGranted) {
+            if (userChosenTask.equals(getString(R.string.gallery_select))) {
+                startGalleryIntent();
+            }
+            else if (userChosenTask.equals(getString(R.string.take_photo))) {
+                startCameraIntent();
+            }
         }
     }
 
@@ -94,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         return userChosenTask;
     }
 
-    public String[] getPermissions() {
-        return permissions;
+    public ArrayList<String> getActivePermissions() {
+        return activePermissions;
     }
 
     public MagicalPermissions getMagicalPermissions() {
@@ -110,7 +113,4 @@ public class MainActivity extends AppCompatActivity {
         this.magicalPermissions = magicalPermissions;
     }
 
-    public void setPermissions(String[] permissions) {
-        this.permissions = permissions;
-    }
 }
