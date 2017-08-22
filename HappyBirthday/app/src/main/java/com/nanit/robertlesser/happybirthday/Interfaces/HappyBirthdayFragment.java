@@ -1,6 +1,5 @@
 package com.nanit.robertlesser.happybirthday.Interfaces;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 
 /**

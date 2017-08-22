@@ -1,11 +1,8 @@
 package com.nanit.robertlesser.happybirthday.Activities;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +12,8 @@ import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
-import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 import java.util.Map;
-
-import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
 
