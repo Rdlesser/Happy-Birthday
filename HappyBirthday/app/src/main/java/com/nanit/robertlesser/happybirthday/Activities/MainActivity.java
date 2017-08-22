@@ -16,9 +16,7 @@ import com.nanit.robertlesser.happybirthday.R;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int SELECT_FILE = 1;
-    private static final int REQUEST_CAMERA = 0;
+    
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
 
     private String[] permissions;
@@ -63,7 +61,12 @@ public class MainActivity extends AppCompatActivity {
                     findFragmentById(R.id.details_screen_fragment);
             magicalCamera.resultPhoto(requestCode, resultCode, data);
             Bitmap photo = magicalCamera.getPhoto();
-            fragment.onSelectFromGalleryResult(photo);
+            if (photo.getWidth() > photo.getHeight()){
+                magicalCamera.resultPhoto(requestCode, resultCode, data,
+                        MagicalCamera.ORIENTATION_ROTATE_90);
+                photo = magicalCamera.getPhoto();
+            }
+            fragment.setImage(photo);
         }
 
     }

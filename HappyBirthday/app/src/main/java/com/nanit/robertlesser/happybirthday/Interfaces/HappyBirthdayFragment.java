@@ -8,7 +8,5 @@ import android.graphics.Bitmap;
 
 public interface HappyBirthdayFragment {
 
-    void onSelectFromGalleryResult(Bitmap bitmap);
-
-    void onCaptureImageResult(Bitmap bitmap);
+    void setImage(Bitmap bitmap);
 }

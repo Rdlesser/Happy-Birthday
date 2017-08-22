@@ -178,13 +178,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     }
 
     @Override
-    public void onSelectFromGalleryResult(Bitmap bitmap) {
-        ivPictureImage.setImageBitmap(bitmap);
-
-    }
-
-    @Override
-    public void onCaptureImageResult(Bitmap bitmap) {
+    public void setImage(Bitmap bitmap) {
         ivPictureImage.setImageBitmap(bitmap);
 
     }
