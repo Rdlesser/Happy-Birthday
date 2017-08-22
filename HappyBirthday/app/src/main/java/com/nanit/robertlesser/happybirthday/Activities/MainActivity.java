@@ -10,8 +10,10 @@ import android.util.Log;
 
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
+import com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment;
 import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
+import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 import java.util.Map;
 
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         MagicalCamera.ORIENTATION_ROTATE_90);
                 photo = magicalCamera.getPhoto();
             }
+            String path = magicalCamera.savePhotoInMemoryDevice(photo, "HappyBirthdayPhoto", false);
+            Utility.saveStringInPrefs(this, DetailsScreenFragment.BIRTHDAY_PIC_PATH, path);
             fragment.setImage(photo);
         }
 

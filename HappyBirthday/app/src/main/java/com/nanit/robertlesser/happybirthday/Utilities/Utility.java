@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 
@@ -32,5 +33,13 @@ public class Utility {
                         Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public static void saveStringInPrefs(final Context context, String fieldName, String fieldValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(fieldName, fieldValue);
+        editor.commit();
     }
 }

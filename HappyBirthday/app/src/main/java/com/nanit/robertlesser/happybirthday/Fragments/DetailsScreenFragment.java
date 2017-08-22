@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -27,6 +28,7 @@ import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +42,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     public static final String BIRTHDAY_NAME = "name";
     public static final String BIRTHDAY_DATE = "date";
-    public static final String BIRHDAY_PIC = "picture_path";
+    public static final String BIRTHDAY_PIC_PATH = "picture_path";
 
     private View detailsView;
     private EditText etName;
@@ -92,6 +94,16 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         etName.setText(name);
         String date = sharedPreferences.getString(BIRTHDAY_DATE, "");
         etBirthday.setText(date);
+        String path = sharedPreferences.getString(BIRTHDAY_PIC_PATH, "");
+        File imgFile = new  File(path);
+        Bitmap bitmap = null;
+        if (imgFile.exists()) {
+            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        }
+        if (bitmap != null) {
+            ivPictureImage.setImageBitmap(bitmap);
+        }
+
         enableShowBirthdayButtonIfReady();
     }
 
@@ -236,14 +248,13 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     @Override
     public void afterTextChanged(Editable editable) {
-        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         String birthdayName = etName.getText().toString();
-        editor.putString(BIRTHDAY_NAME, birthdayName);
+        Utility.saveStringInPrefs(mainActivity, BIRTHDAY_NAME, birthdayName);
+
         String birthdayDate = etBirthday.getText().toString();
-        editor.putString(BIRTHDAY_DATE, birthdayDate);
-        editor.commit();
+        Utility.saveStringInPrefs(mainActivity, BIRTHDAY_DATE, birthdayDate);
+
         enableShowBirthdayButtonIfReady();
 
     }
