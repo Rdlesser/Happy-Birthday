@@ -178,7 +178,6 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
             public void onClick(DialogInterface dialogInterface, int item) {
                 if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
                     String[] askedPermissions = new String[] {
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE
                     };
                     boolean hasPermission = Utility.checkPermission(
@@ -191,7 +190,6 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
                 else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
                     String[] askedPermissions = new String[] {
                             Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                     };
                     boolean hasPermission = Utility.checkPermission(

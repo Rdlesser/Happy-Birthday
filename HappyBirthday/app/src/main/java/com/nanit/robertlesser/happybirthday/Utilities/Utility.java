@@ -26,24 +26,30 @@ public class Utility {
         ArrayList<String> activePermissions = mainActivity.getActivePermissions();
         ArrayList<String> missingPermissions = new ArrayList<>();
 
+        boolean haveAllPermissions = true;
         // Narrow down the permissions to only the missing ones
         for (String permission : permissions) {
             if (!activePermissions.contains(permission)) {
                 missingPermissions.add(permission);
+                haveAllPermissions = false;
             }
         }
 
         //Now ask for the missing permissions
         String[] askingPermissions = missingPermissions.toArray(permissions);
         MagicalPermissions newPermissions = new MagicalPermissions(mainActivity, askingPermissions);
+        mainActivity.setMagicalPermissions(newPermissions);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
             }
         };
-        newPermissions.askPermissions(runnable);
-        return false;
+        for (String permission : askingPermissions) {
+            newPermissions.askPermissions(runnable, permission);
+        }
+
+        return haveAllPermissions;
     }
 
     public static void hideSoftKeyboard(Activity activity) {
