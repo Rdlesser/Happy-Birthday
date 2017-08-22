@@ -1,6 +1,7 @@
 package com.nanit.robertlesser.happybirthday.Interfaces;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 
 /**
  * Created by robertlesser on 20/08/2017.
@@ -8,7 +9,7 @@ import android.content.Intent;
 
 public interface HappyBirthdayFragment {
 
-    public void onSelectFromGalleryResult(Intent intent);
+    void onSelectFromGalleryResult(Bitmap bitmap);
 
-    public void onCaptureImageResult(Intent intent);
+    void onCaptureImageResult(Bitmap bitmap);
 }

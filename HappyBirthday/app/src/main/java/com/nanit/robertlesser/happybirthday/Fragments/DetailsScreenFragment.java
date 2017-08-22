@@ -1,23 +1,19 @@
 package com.nanit.robertlesser.happybirthday.Fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,21 +28,13 @@ import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import static android.R.attr.bitmap;
-import static android.R.attr.data;
-import static android.R.attr.width;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -159,16 +147,28 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle(R.string.picture);
         builder.setItems(pictureOptions, new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialogInterface, int item) {
-                boolean hasPermission = Utility.checkPermission(mainActivity);
                 if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
+                    String[] askedPermissions = new String[] {
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    };
+                    boolean hasPermission = Utility.checkPermission(
+                            mainActivity, askedPermissions);
                     mainActivity.setUserChosenTask(getString(R.string.gallery_select));
                     if (hasPermission) {
                         mainActivity.startGalleryIntent();
                     }
                 }
                 else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
+                    String[] askedPermissions = new String[] {
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    };
+                    boolean hasPermission = Utility.checkPermission(
+                            mainActivity, askedPermissions);
                     mainActivity.setUserChosenTask(getString(R.string.take_photo));
                     if (hasPermission){
                         mainActivity.startCameraIntent();
@@ -184,51 +184,14 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     }
 
     @Override
-    public void onSelectFromGalleryResult(Intent intent) {
-        Bitmap bitmap = null;
-        if (intent != null){
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), intent.getData());
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+    public void onSelectFromGalleryResult(Bitmap bitmap) {
         ivPictureImage.setImageBitmap(bitmap);
 
     }
 
     @Override
-    public void onCaptureImageResult(Intent intent) {
-        InputStream stream = null;
-        try {
-            if (bitmap != null) {
-                bitmap.recycle();
-            }
-            stream = mainActivity.getContentResolver().openInputStream(intent.getData());
-            bitmap = BitmapFactory.decodeStream(stream);
-
-            Matrix matrix = new Matrix();
-
-            matrix.postRotate(90);
-
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
-
-            Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
-
-            ivPictureImage.setImageBitmap(rotatedBitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public void onCaptureImageResult(Bitmap bitmap) {
+        ivPictureImage.setImageBitmap(bitmap);
 
     }
 

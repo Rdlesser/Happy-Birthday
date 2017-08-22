@@ -1,22 +1,35 @@
 package com.nanit.robertlesser.happybirthday.Activities;
 
+import android.Manifest;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.frosquivel.magicalcamera.MagicalCamera;
+import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
+
+import java.util.Map;
+
+import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int SELECT_FILE = 1;
     private static final int REQUEST_CAMERA = 0;
+    private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
+
+    private String[] permissions;
+    private MagicalPermissions magicalPermissions;
+    private MagicalCamera magicalCamera;
 
     String userChosenTask = "";
 
@@ -29,17 +42,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChosenTask.equals(getString(R.string.gallery_select)))
-                        startGalleryIntent();
-                    else if(userChosenTask.equals(getString(R.string.take_photo)))
-                        startCameraIntent();
-                } else {
-                    //code for deny
-                }
-                break;
+//        switch (requestCode) {
+//            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    if(userChosenTask.equals(getString(R.string.gallery_select)))
+//                        startGalleryIntent();
+//                    else if(userChosenTask.equals(getString(R.string.take_photo)))
+//                        startCameraIntent();
+//                } else {
+//                    //code for deny
+//                }
+//                break;
+//        }
+        Map<String, Boolean> map = magicalPermissions.permissionResult(requestCode, permissions, grantResults);
+        for (String permission : map.keySet()) {
+            Log.d("PERMISSIONS", permission + " was: " + map.get(permission));
+
         }
     }
 
@@ -49,33 +67,48 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             HappyBirthdayFragment fragment = (HappyBirthdayFragment) getSupportFragmentManager().
                     findFragmentById(R.id.details_screen_fragment);
-            if (requestCode == SELECT_FILE) {
-                fragment.onSelectFromGalleryResult(data);
-            }
-            else if (requestCode == REQUEST_CAMERA) {
-                fragment.onCaptureImageResult(data);
-            }
+            magicalCamera.resultPhoto(requestCode, resultCode, data);
+            Bitmap photo = magicalCamera.getPhoto();
+            fragment.onSelectFromGalleryResult(photo);
         }
 
     }
 
     public void startCameraIntent() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAMERA);
+        if (magicalCamera == null) {
+            magicalCamera = new MagicalCamera(this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
+        }
+        magicalCamera.takePhoto();
     }
 
     public void startGalleryIntent() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+        if (magicalCamera == null) {
+            magicalCamera = new MagicalCamera(this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
+        }
+        magicalCamera.selectedPicture(getString(R.string.gallery_select));
     }
 
     public String getUserChosenTask() {
         return userChosenTask;
     }
 
+    public String[] getPermissions() {
+        return permissions;
+    }
+
+    public MagicalPermissions getMagicalPermissions() {
+        return magicalPermissions;
+    }
+
     public void setUserChosenTask(String userChosenTask) {
         this.userChosenTask = userChosenTask;
+    }
+
+    public void setMagicalPermissions(MagicalPermissions magicalPermissions) {
+        this.magicalPermissions = magicalPermissions;
+    }
+
+    public void setPermissions(String[] permissions) {
+        this.permissions = permissions;
     }
 }
