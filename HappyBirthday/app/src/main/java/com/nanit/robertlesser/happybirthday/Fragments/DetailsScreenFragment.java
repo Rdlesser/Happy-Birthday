@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,11 +32,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.R.id.edit;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DetailsScreenFragment extends Fragment implements View.OnFocusChangeListener,
         View.OnClickListener, HappyBirthdayFragment, TextWatcher {
+
+    public static final String BIRTHDAY_NAME = "name";
+    public static final String BIRTHDAY_DATE = "date";
+    public static final String BIRHDAY_PIC = "picture_path";
 
     private View detailsView;
     private EditText etName;
@@ -216,7 +224,14 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     @Override
     public void afterTextChanged(Editable editable) {
+        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String chosenName = etName.getText().toString();
+        editor.putString(BIRTHDAY_NAME, chosenName);
+        editor.commit();
         enableShowBirthdayButtonIfReady();
+
     }
 
     private void enableShowBirthdayButtonIfReady() {

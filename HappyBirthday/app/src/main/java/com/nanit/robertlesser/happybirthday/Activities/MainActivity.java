@@ -16,7 +16,7 @@ import com.nanit.robertlesser.happybirthday.R;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
 
     private String[] permissions;
