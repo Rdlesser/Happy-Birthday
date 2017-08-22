@@ -32,8 +32,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static android.R.id.edit;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -72,21 +70,35 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         detailsView = inflater.inflate(R.layout.fragment_details_screen, container, false);
 
         findViewsById();
-        setupUI(detailsView);
+        setupTouchListener(detailsView);
 
         dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         setBirthdayField();
-
+        setupFields();
+        setupTextChangeListener();
         return detailsView;
+    }
+
+    private void setupTextChangeListener() {
+        etName.addTextChangedListener(this);
+        etBirthday.addTextChangedListener(this);
+        btnPicture.setOnClickListener(this);
+    }
+
+    private void setupFields() {
+        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
+                Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString(BIRTHDAY_NAME, "");
+        etName.setText(name);
+        String date = sharedPreferences.getString(BIRTHDAY_DATE, "");
+        etBirthday.setText(date);
+        enableShowBirthdayButtonIfReady();
     }
 
     private void findViewsById() {
         etName = detailsView.findViewById(R.id.name_view);
-        etName.addTextChangedListener(this);
         etBirthday = detailsView.findViewById(R.id.birthday_view);
-        etBirthday.addTextChangedListener(this);
         btnPicture = detailsView.findViewById(R.id.picture_button);
-        btnPicture.setOnClickListener(this);
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
 
         btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
@@ -191,7 +203,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     }
 
-    public void setupUI(View view) {
+    public void setupTouchListener(View view) {
 
         // Set up touch listener for non-text box views to hide keyboard.
         if (!(view instanceof EditText)) {
@@ -207,7 +219,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         if (view instanceof ViewGroup) {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView);
+                setupTouchListener(innerView);
             }
         }
     }
@@ -227,8 +239,10 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String chosenName = etName.getText().toString();
-        editor.putString(BIRTHDAY_NAME, chosenName);
+        String birthdayName = etName.getText().toString();
+        editor.putString(BIRTHDAY_NAME, birthdayName);
+        String birthdayDate = etBirthday.getText().toString();
+        editor.putString(BIRTHDAY_DATE, birthdayDate);
         editor.commit();
         enableShowBirthdayButtonIfReady();
 
