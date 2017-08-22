@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         MagicalCamera.ORIENTATION_ROTATE_90);
                 photo = magicalCamera.getPhoto();
             }
-            String path = magicalCamera.savePhotoInMemoryDevice(photo, "HappyBirthdayPhoto", false);
+            String path = magicalCamera.savePhotoInMemoryDevice(photo, "HappyBirthdayPhoto",
+                    Bitmap.CompressFormat.JPEG, false);
             Utility.saveStringInPrefs(this, DetailsScreenFragment.BIRTHDAY_PIC_PATH, path);
             fragment.setImage(photo);
         }
