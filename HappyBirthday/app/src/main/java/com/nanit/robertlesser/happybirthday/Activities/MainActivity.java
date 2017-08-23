@@ -6,12 +6,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
+import com.nanit.robertlesser.happybirthday.Fragments.BirthdayScreenFragment;
 import com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment;
 import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
@@ -100,6 +103,20 @@ public class MainActivity extends AppCompatActivity {
             }
             magicalCamera = new MagicalCamera(this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
         }
+    }
+
+    public void displayBirthdayScreen() {
+        // Create new fragment and transaction
+        Fragment birthdayFragment = new BirthdayScreenFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        fragmentTransaction.replace(R.id.fragment_container, birthdayFragment);
+        fragmentTransaction.addToBackStack(null);
+
+        // Commit the transaction
+        fragmentTransaction.commit();
     }
 
     public String getUserChosenTask() {

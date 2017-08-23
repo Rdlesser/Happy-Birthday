@@ -14,7 +14,4 @@
     <string name="take_photo">Take a photo</string>
     <string name="cancel">Cancel</string>
 
-    <!--permissions strings-->
-    <string name="permission_necessary_title">Permission necessary</string>
-    <string name="permission_necessary_text">External storage permission is necessary</string>
 </resources>

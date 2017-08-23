@@ -121,6 +121,8 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         etName.addTextChangedListener(this);
         etBirthday.addTextChangedListener(this);
         btnPicture.setOnClickListener(this);
+        btnShowBirthday.setOnClickListener(this);
+
     }
 
     /**
@@ -210,6 +212,11 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
             case R.id.picture_button:
                 selectImage();
+                break;
+
+            case R.id.show_birthday_button:
+                mainActivity.displayBirthdayScreen();
+                break;
         }
     }
 
