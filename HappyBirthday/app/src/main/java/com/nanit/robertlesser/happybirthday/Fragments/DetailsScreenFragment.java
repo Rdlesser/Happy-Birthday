@@ -42,6 +42,8 @@ import java.util.Locale;
 public class DetailsScreenFragment extends Fragment implements View.OnFocusChangeListener,
         View.OnClickListener, HappyBirthdayFragment, TextWatcher {
 
+    public static final String TAG = DetailsScreenFragment.class.getSimpleName();
+
     public static final String BIRTHDAY_NAME = "name";
     public static final String BIRTHDAY_DATE = "date";
     public static final String BIRTHDAY_PIC_PATH = "picture_path";

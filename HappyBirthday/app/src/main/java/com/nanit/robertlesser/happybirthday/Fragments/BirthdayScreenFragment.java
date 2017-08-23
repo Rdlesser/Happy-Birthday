@@ -15,6 +15,8 @@ import com.nanit.robertlesser.happybirthday.R;
 public class BirthdayScreenFragment extends Fragment {
 
 
+    public static final String TAG = BirthdayScreenFragment.class.getSimpleName();
+
     public BirthdayScreenFragment() {
         // Required empty public constructor
     }

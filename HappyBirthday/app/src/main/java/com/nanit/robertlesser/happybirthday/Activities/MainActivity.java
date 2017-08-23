@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activePermissions = new ArrayList<>();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        DetailsScreenFragment fragment = new DetailsScreenFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment, DetailsScreenFragment.TAG);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -69,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             HappyBirthdayFragment fragment = (HappyBirthdayFragment) getSupportFragmentManager().
-                    findFragmentById(R.id.details_screen_fragment);
+                    findFragmentByTag(DetailsScreenFragment.TAG);
             magicalCamera.resultPhoto(requestCode, resultCode, data);
             Bitmap photo = magicalCamera.getPhoto();
             if (photo.getWidth() > photo.getHeight()){
@@ -112,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        fragmentTransaction.replace(R.id.fragment_container, birthdayFragment);
+        fragmentTransaction.replace(R.id.fragment_container, birthdayFragment, BirthdayScreenFragment.TAG);
         fragmentTransaction.addToBackStack(null);
 
         // Commit the transaction
