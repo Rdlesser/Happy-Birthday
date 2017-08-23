@@ -77,11 +77,11 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         setBirthdayField();
         setupFields();
-        setupTextChangeListener();
+        setupListeners();
         return detailsView;
     }
 
-    private void setupTextChangeListener() {
+    private void setupListeners() {
         etName.addTextChangedListener(this);
         etBirthday.addTextChangedListener(this);
         btnPicture.setOnClickListener(this);

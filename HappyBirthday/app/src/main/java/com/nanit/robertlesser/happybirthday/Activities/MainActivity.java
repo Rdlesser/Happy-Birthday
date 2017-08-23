@@ -2,6 +2,8 @@ package com.nanit.robertlesser.happybirthday.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,17 +83,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startCameraIntent() {
-        if (magicalCamera == null) {
-            magicalCamera = new MagicalCamera(this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
-        }
+        setupMagicalCameraFields();
         magicalCamera.takePhoto();
     }
 
     public void startGalleryIntent() {
+        setupMagicalCameraFields();
+        magicalCamera.selectedPicture(getString(R.string.gallery_select));
+    }
+
+    private void setupMagicalCameraFields() {
         if (magicalCamera == null) {
+            if (magicalPermissions == null) {
+                magicalPermissions = new MagicalPermissions(this,
+                        activePermissions.toArray(new String[]{}));
+            }
             magicalCamera = new MagicalCamera(this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
         }
-        magicalCamera.selectedPicture(getString(R.string.gallery_select));
     }
 
     public String getUserChosenTask() {
@@ -98,7 +107,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<String> getActivePermissions() {
-        return activePermissions;
+        if (activePermissions.size() == 0) {
+            //Either we did not ask for permissions yet, or we restarted the app
+            ArrayList<String> granted = new ArrayList<>();
+            try {
+                PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(),
+                        PackageManager.GET_PERMISSIONS);
+                for (int i = 0; i < pi.requestedPermissions.length; i++) {
+                    if ((pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0) {
+                        granted.add(pi.requestedPermissions[i]);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            activePermissions = granted;
+            return activePermissions;
+        }
+        else {
+            return activePermissions;
+        }
     }
 
     public MagicalPermissions getMagicalPermissions() {

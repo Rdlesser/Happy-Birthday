@@ -35,18 +35,21 @@ public class Utility {
             }
         }
 
-        //Now ask for the missing permissions
-        String[] askingPermissions = missingPermissions.toArray(permissions);
-        MagicalPermissions newPermissions = new MagicalPermissions(mainActivity, askingPermissions);
-        mainActivity.setMagicalPermissions(newPermissions);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        if (!haveAllPermissions) {
+            String[] askingPermissions = missingPermissions.toArray(permissions);
+            MagicalPermissions newPermissions = new MagicalPermissions(mainActivity, askingPermissions);
+            mainActivity.setMagicalPermissions(newPermissions);
 
+            //Now ask for the missing permissions
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            };
+            for (String permission : askingPermissions) {
+                newPermissions.askPermissions(runnable, permission);
             }
-        };
-        for (String permission : askingPermissions) {
-            newPermissions.askPermissions(runnable, permission);
         }
 
         return haveAllPermissions;
