@@ -21,8 +21,9 @@ import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private MagicalCamera magicalCamera;
 
     String userChosenTask = "";
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activePermissions = new ArrayList<>();
+
+        dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -129,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String getUserChosenTask() {
         return userChosenTask;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
     }
 
     public ArrayList<String> getActivePermissions() {

@@ -4,8 +4,6 @@ package com.nanit.robertlesser.happybirthday.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +17,9 @@ import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.text.SimpleDateFormat;
+
+import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_DATE;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
 
 /**
@@ -37,6 +38,8 @@ public class BirthdayScreenFragment extends Fragment {
 
     private MainActivity mainActivity;
 
+    private SimpleDateFormat dateFormat;
+
     public BirthdayScreenFragment() {
         // Required empty public constructor
     }
@@ -48,6 +51,9 @@ public class BirthdayScreenFragment extends Fragment {
         this.mainActivity = (MainActivity) getContext();
         // Inflate the layout for this fragment
         detailsView = inflater.inflate(R.layout.fragment_birthday_screen, container, false);
+
+        dateFormat = mainActivity.getDateFormat();
+
         findViewsById();
         setupBackground();
         setUpViews();
@@ -59,11 +65,15 @@ public class BirthdayScreenFragment extends Fragment {
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
                 Context.MODE_PRIVATE);
 
-        //Setup the name text view
+        // Setup the name text view
         String name = sharedPreferences.getString(BIRTHDAY_NAME, "");
         Resources resources = getResources();
         String nameText = resources.getString(R.string.birthday_name, name);
         tvName.setText(nameText);
+
+        // Setup the age image
+        String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
+
 
     }
 

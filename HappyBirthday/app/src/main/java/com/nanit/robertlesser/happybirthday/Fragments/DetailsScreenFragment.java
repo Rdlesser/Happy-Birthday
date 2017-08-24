@@ -81,7 +81,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         setupBackground();
         setupTouchListener(detailsView);
 
-        dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+        dateFormat = mainActivity.getDateFormat();
         setBirthdayField();
         setupFields();
         setupListeners();
