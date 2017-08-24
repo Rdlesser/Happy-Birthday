@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.R;
@@ -25,6 +26,9 @@ public class BirthdayScreenFragment extends Fragment {
     private View detailsView;
     private ImageView ivPictureImage;
     private ImageView ivBackgroundImage;
+    private TextView tvName;
+    private ImageView ivAgeView;
+    private TextView tvUnits;
 
     private MainActivity mainActivity;
 
@@ -82,6 +86,9 @@ public class BirthdayScreenFragment extends Fragment {
     private void findViewsById() {
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
         ivBackgroundImage = detailsView.findViewById(R.id.background_image);
+        tvName = detailsView.findViewById(R.id.name_text_view);
+        ivAgeView = detailsView.findViewById(R.id.age_image_view);
+        tvUnits = detailsView.findViewById(R.id.units_text_view);
     }
 
 }

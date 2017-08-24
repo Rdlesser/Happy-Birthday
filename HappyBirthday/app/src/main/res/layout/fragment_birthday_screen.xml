@@ -42,7 +42,7 @@
         android:layout_marginEnd="74dp">
 
         <TextView
-            android:id="@+id/birthday_name"
+            android:id="@+id/name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -70,6 +70,7 @@
                 android:layout_weight="1"/>
 
             <ImageView
+                android:id="@+id/age_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/num1"
@@ -84,6 +85,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/units_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
