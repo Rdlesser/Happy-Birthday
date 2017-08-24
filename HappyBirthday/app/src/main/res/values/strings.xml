@@ -9,11 +9,12 @@
     <string name="picture">Choose picture</string>
     <string name="show_birthday_button_text">Show birthday screen</string>
 
+    <!--birthday screen strings-->
+    <string name="birthday_name">Today %1s is</string>
+
     <!--picture options-->
     <string name="gallery_select">Select from gallery</string>
     <string name="take_photo">Take a photo</string>
     <string name="cancel">Cancel</string>
-
-    <string name="details_screen_fragment_tage">deails_fragment</string>
 
 </resources>

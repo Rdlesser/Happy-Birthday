@@ -1,6 +1,9 @@
 package com.nanit.robertlesser.happybirthday.Fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
+
+import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
 
 /**
  * A simple {@link Fragment} subclass for the Birthday Screen
@@ -45,8 +50,21 @@ public class BirthdayScreenFragment extends Fragment {
         detailsView = inflater.inflate(R.layout.fragment_birthday_screen, container, false);
         findViewsById();
         setupBackground();
+        setUpViews();
 
         return detailsView;
+    }
+
+    private void setUpViews() {
+        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
+                Context.MODE_PRIVATE);
+
+        //Setup the name text view
+        String name = sharedPreferences.getString(BIRTHDAY_NAME, "");
+        Resources resources = getResources();
+        String nameText = resources.getString(R.string.birthday_name, name);
+        tvName.setText(nameText);
+
     }
 
     private void setupBackground() {
