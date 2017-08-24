@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -45,6 +47,8 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     public static final String BIRTHDAY_PIC_PATH = "picture_path";
 
     private View detailsView;
+    private ConstraintLayout detailsScreenLayout;
+    private ImageView ivBottomImage;
     private EditText etName;
     private EditText etBirthday;
     private Button btnPicture;
@@ -72,6 +76,7 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         detailsView = inflater.inflate(R.layout.fragment_details_screen, container, false);
 
         findViewsById();
+        setupBackground();
         setupTouchListener(detailsView);
 
         dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
@@ -79,6 +84,37 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         setupFields();
         setupListeners();
         return detailsView;
+    }
+
+    private void setupBackground() {
+        // Randomly choose a number between 0 and 2 to be used to randomly set the background
+        int randomInt = Utility.randomIntInRange(0, 2);
+        switch (randomInt) {
+            case 0:
+                // Set background to "Elephant"
+                detailsScreenLayout.setBackgroundColor(ContextCompat.getColor(
+                        mainActivity, R.color.elephant_background));
+                ivBottomImage.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.elephant_activity));
+                break;
+            case 1:
+                // Set background to "Fox"
+                detailsScreenLayout.setBackgroundColor(ContextCompat.getColor(
+                        mainActivity, R.color.fox_background));
+                ivBottomImage.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.fox_activity));
+                break;
+            case 2:
+                // Set background to "Pelican"
+                detailsScreenLayout.setBackgroundColor(ContextCompat.getColor(
+                        mainActivity, R.color.pelican_background));
+                ivBottomImage.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.pelican_activity));
+                break;
+        }
     }
 
     private void setupListeners() {
@@ -108,6 +144,8 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
     }
 
     private void findViewsById() {
+        detailsScreenLayout = detailsView.findViewById(R.id.details_screen_layout);
+        ivBottomImage = detailsView.findViewById(R.id.bottom_image);
         etName = detailsView.findViewById(R.id.name_view);
         etBirthday = detailsView.findViewById(R.id.birthday_view);
         btnPicture = detailsView.findViewById(R.id.picture_button);

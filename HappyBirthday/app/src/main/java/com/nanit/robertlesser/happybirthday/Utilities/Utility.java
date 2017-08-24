@@ -11,6 +11,7 @@ import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by robertlesser on 20/08/2017.
@@ -69,5 +70,11 @@ public class Utility {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(fieldName, fieldValue);
         editor.commit();
+    }
+
+    public static int randomIntInRange(int min, int max) {
+        Random random = new Random();
+        int randomInt = random.nextInt(max - min + 1) + min;
+        return randomInt;
     }
 }
