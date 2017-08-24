@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="details_screen_picture_image_size">50dp</dimen>
+
+    <dimen name="birthday_screen_picture_bottom_margin">24dp</dimen>
+
+</resources>
