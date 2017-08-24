@@ -6,6 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment">
 
+    <ImageView
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/welcome_textview"
         android:layout_width="wrap_content"
