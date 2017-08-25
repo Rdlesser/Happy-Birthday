@@ -56,11 +56,13 @@
             android:textAllCaps="true"/>
 
         <LinearLayout
+            android:id="@+id/small_age_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -75,6 +77,43 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/num1"
                 android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_swirls"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/big_age_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/left_swirls"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/tens_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/num1"
+                android:layout_weight="0.5"/>
+
+            <ImageView
+                android:id="@+id/units_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/num1"
+                android:layout_weight="0.5"/>
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
@@ -39,10 +40,13 @@ public class BirthdayScreenFragment extends Fragment {
     private TextView tvName;
     private ImageView ivAgeView;
     private TextView tvUnits;
+    private LinearLayout smallAgeLayout;
+    private LinearLayout bigAgeLayout;
 
     private MainActivity mainActivity;
 
     private SimpleDateFormat dateFormat;
+    int monthDifference;
 
     public BirthdayScreenFragment() {
         // Required empty public constructor
@@ -65,18 +69,20 @@ public class BirthdayScreenFragment extends Fragment {
         return detailsView;
     }
 
+    /**
+     * Set up the UI views according to the user's choices
+     */
     private void setUpViews() {
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
                 Context.MODE_PRIVATE);
 
         // Setup the name text view
         String name = sharedPreferences.getString(BIRTHDAY_NAME, "");
-        Resources resources = getResources();
-        String nameText = resources.getString(R.string.birthday_name, name);
-        tvName.setText(nameText);
+        setName(name);
 
         // Setup the age image
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
+        setAge(birthday);
         Date birthdayDate = null;
         try {
             birthdayDate = dateFormat.parse(birthday);
@@ -85,11 +91,17 @@ public class BirthdayScreenFragment extends Fragment {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        int monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
+        monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
 
 
     }
 
+    /**
+     * Randomly set up the background based on 1 of 3 options:
+     * - Elephant
+     * - Fox
+     * - Pelican
+     */
     private void setupBackground() {
         // Randomly choose a number between 0 and 2 to be used to randomly set the background
         int randomInt = Utility.randomIntInRange(0, 2);
@@ -124,12 +136,50 @@ public class BirthdayScreenFragment extends Fragment {
         }
     }
 
+    /**
+     * Perform all the "findViewById()" calls
+     */
     private void findViewsById() {
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
         ivBackgroundImage = detailsView.findViewById(R.id.background_image);
         tvName = detailsView.findViewById(R.id.name_text_view);
         ivAgeView = detailsView.findViewById(R.id.age_image_view);
         tvUnits = detailsView.findViewById(R.id.units_text_view);
+        smallAgeLayout = detailsView.findViewById(R.id.small_age_layout);
+        bigAgeLayout = detailsView.findViewById(R.id.big_age_layout);
     }
 
+    /**
+     * Set tvName's text according to parameter
+     * @param name A string representing the name to be used
+     */
+    private void setName(String name) {
+        Resources resources = getResources();
+        String nameText = resources.getString(R.string.birthday_name, name);
+        tvName.setText(nameText);
+    }
+
+    /**
+     * Set the age image according to the given birthday
+     * @param birthday
+     */
+    private void setAge(String birthday) {
+        Date birthdayDate = null;
+        try {
+            birthdayDate = dateFormat.parse(birthday);
+            //catch exception
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
+        int age = monthDifference;
+        // Case we need to start counting in years as we've passed 12 months
+        if (monthDifference > 12) {
+            age /= 12;
+        }
+        if (age > 12) {
+            // If the person is older than 12 - we'll need to work with 2 imageViews for the age
+
+        }
+    }
 }
