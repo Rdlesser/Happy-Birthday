@@ -10,7 +10,11 @@ import android.view.inputmethod.InputMethodManager;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -102,4 +106,34 @@ public class Utility {
         int randomInt = random.nextInt(max - min + 1) + min;
         return randomInt;
     }
+
+    /**
+     * Get the difference in monthds between 2 date instances
+     * @param start The start date to calculate from
+     * @param end The end date to calculate up to
+     * @return The difference in monthds between the 2 dates
+     * @note For a difference that is less than a month the method returns 0
+     */
+    public static int getDateDiffMonths(Date start, Date end) {
+        int difference;
+
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+        int startYear = Integer.valueOf(yearFormat.format(start));
+        int endYear = Integer.valueOf(yearFormat.format(end));
+        int yearDifference = endYear - startYear;
+        int startMonth = Integer.valueOf(monthFormat.format(start));
+        int endMonth = Integer.valueOf(monthFormat.format(end));
+        int monthDifference = endMonth - startMonth;
+        int startDay = Integer.valueOf(dayFormat.format(start));
+        int endDay = Integer.valueOf(dayFormat.format(end));
+        int dayDifference = endDay - startDay;
+
+        difference = 12 * yearDifference + monthDifference - 1 * Integer.signum(dayDifference);
+
+        return difference;
+    }
+
 }

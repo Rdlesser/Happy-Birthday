@@ -17,7 +17,11 @@ import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_DATE;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
@@ -73,6 +77,15 @@ public class BirthdayScreenFragment extends Fragment {
 
         // Setup the age image
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
+        Date birthdayDate = null;
+        try {
+            birthdayDate = dateFormat.parse(birthday);
+            //catch exception
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
 
 
     }
