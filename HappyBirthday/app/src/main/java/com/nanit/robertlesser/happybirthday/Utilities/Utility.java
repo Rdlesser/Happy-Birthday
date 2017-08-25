@@ -130,8 +130,11 @@ public class Utility {
         int startDay = Integer.valueOf(dayFormat.format(start));
         int endDay = Integer.valueOf(dayFormat.format(end));
         int dayDifference = endDay - startDay;
+        if (dayDifference < 0) {
+            monthDifference -= 1;
+        }
 
-        difference = 12 * yearDifference + monthDifference - 1 * Integer.signum(dayDifference);
+        difference = 12 * yearDifference + monthDifference;
 
         return difference;
     }

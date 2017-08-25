@@ -172,6 +172,8 @@ public class BirthdayScreenFragment extends Fragment {
             e.printStackTrace();
         }
         monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
+        // We'll be working with age and not monthDifference as we'll be using monthDifference again
+        // for the units TextView
         int age = monthDifference;
         // Case we need to start counting in years as we've passed 12 months
         if (monthDifference > 12) {
@@ -180,6 +182,15 @@ public class BirthdayScreenFragment extends Fragment {
         if (age > 12) {
             // If the person is older than 12 - we'll need to work with 2 imageViews for the age
 
+        }
+        else {
+            // Age of person is less than 13 - we'll work with smallAgeLayout
+            bigAgeLayout.setVisibility(View.GONE);
+            smallAgeLayout.setVisibility(View.VISIBLE);
+            String imageId = "num" + age;
+            int id = mainActivity.getResources().
+                    getIdentifier(imageId, "drawable", mainActivity.getPackageName());
+            ivAgeView.setImageResource(id);
         }
     }
 }
