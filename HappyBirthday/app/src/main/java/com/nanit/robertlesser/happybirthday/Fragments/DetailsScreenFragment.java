@@ -123,6 +123,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         btnPicture.setOnClickListener(this);
     }
 
+    /**
+     * Set up fields according to previous app launches
+     */
     private void setupFields() {
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(mainActivity.getPackageName(),
                 Context.MODE_PRIVATE);
@@ -143,6 +146,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         enableShowBirthdayButtonIfReady();
     }
 
+    /**
+     * Perform all the "findViewById()" calls
+     */
     private void findViewsById() {
         detailsScreenLayout = detailsView.findViewById(R.id.details_screen_layout);
         ivBottomImage = detailsView.findViewById(R.id.bottom_image);
@@ -154,6 +160,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         btnShowBirthday = detailsView.findViewById(R.id.show_birthday_button);
     }
 
+    /**
+     * Set up the date picker dialog for the birhday field
+     */
     private void setBirthdayField() {
 
         etBirthday.setOnFocusChangeListener(this);
@@ -204,6 +213,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
         }
     }
 
+    /**
+     * Method for selecting the image for the preview image view
+     */
     private void selectImage() {
 
         final String[] pictureOptions = mainActivity.getResources().
@@ -252,6 +264,10 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     }
 
+    /**
+     * Set up touch listener for non-text box views to hide keyboard.
+     * @param view The ViewGroup containing all the views
+     */
     public void setupTouchListener(View view) {
 
         // Set up touch listener for non-text box views to hide keyboard.
@@ -296,6 +312,9 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
 
     }
 
+    /**
+     * Enable/Disable the 'show birthday button' when name and birthday have been inserted/removed
+     */
     private void enableShowBirthdayButtonIfReady() {
         boolean isReady = (etName.getText().length() > 0) &&
                 (etBirthday.getText().length() > 0);
