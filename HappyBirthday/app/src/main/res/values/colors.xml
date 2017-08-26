@@ -7,4 +7,5 @@
     <color name="elephant_background">#FFF9F0D7</color>
     <color name="fox_background">#FFC5E8DF</color>
     <color name="pelican_background">#FFDAF1F6</color>
+    <color name="share_color">#FFE47C7C</color>
 </resources>
