@@ -156,6 +156,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
                 ivPictureImage.setImageDrawable(ContextCompat.getDrawable(
                         mainActivity,
                         R.drawable.default_place_holder_yellow));
+                cameraIcon.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.camera_icon_yellow));
                 break;
             case 1:
                 // Set background to "Fox"
@@ -165,6 +168,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
                 ivPictureImage.setImageDrawable(ContextCompat.getDrawable(
                         mainActivity,
                         R.drawable.default_place_holder_green));
+                cameraIcon.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.camera_icon_green));
                 break;
             case 2:
                 // Set background to "Pelican"
@@ -174,6 +180,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
                 ivPictureImage.setImageDrawable(ContextCompat.getDrawable(
                         mainActivity,
                         R.drawable.default_place_holder_blue));
+                cameraIcon.setImageDrawable(ContextCompat.getDrawable(
+                        mainActivity,
+                        R.drawable.camera_icon_blue));
                 break;
         }
     }
