@@ -239,10 +239,17 @@ public class MainActivity extends AppCompatActivity {
     public void shareScreen(View[] disableViews) {
         Utility.changeViewsVisibility(disableViews, INVISIBLE);
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-        Bitmap screenshot = getScreenShot(rootView);
+        String[] readWritePermission = new String[] {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+        boolean hasPermission = Utility.checkPermission(this, readWritePermission);
+        if (hasPermission) {
+            Bitmap screenshot = getScreenShot(rootView);
+            File file = store(screenshot, SCREENSHOT_FILE_NAME);
+            Utility.shareImage(this, file);
+        }
         Utility.changeViewsVisibility(disableViews, VISIBLE);
-        File file = store(screenshot, SCREENSHOT_FILE_NAME);
-        Utility.shareImage(this, file);
     }
 
 

@@ -158,7 +158,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="@dimen/share_button_top_margin">
 
             <ImageView
                 android:id="@+id/share_button"
@@ -169,12 +169,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Share the news"
+                android:text="@string/share_button_text"
                 android:textColor="@color/share_color"
                 android:textSize="17sp"
                 android:gravity="center|start"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="@dimen/share_button_text_margin_start"
+                android:layout_marginBottom="@dimen/share_button_text_margin_bottom"
                 app:layout_constraintTop_toTopOf="@id/share_button"
                 app:layout_constraintLeft_toLeftOf="@id/share_button"
                 app:layout_constraintBottom_toBottomOf="@id/share_button"/>
