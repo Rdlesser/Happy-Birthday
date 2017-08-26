@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -172,7 +173,8 @@ public class Utility {
     }
 
     public static void shareImage(Context context, File file){
-        Uri uri = Uri.fromFile(file);
+        Uri uri = FileProvider.getUriForFile(context,
+                "happybirthday.my.package.name.provider", file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
