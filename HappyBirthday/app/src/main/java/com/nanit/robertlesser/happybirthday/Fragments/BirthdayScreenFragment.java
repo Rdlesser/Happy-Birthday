@@ -26,7 +26,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.R.attr.path;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_DATE;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_PIC_PATH;
@@ -42,6 +41,7 @@ public class BirthdayScreenFragment extends Fragment {
     private static String IMAGE_TYPE = "drawable";
 
     private View detailsView;
+    private ImageView ivBtnClose;
     private ImageView ivPictureImage;
     private ImageView ivBackgroundImage;
     private TextView tvName;
@@ -173,6 +173,7 @@ public class BirthdayScreenFragment extends Fragment {
      * Perform all the "findViewById()" calls
      */
     private void findViewsById() {
+        ivBtnClose = detailsView.findViewById(R.id.close_button);
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
         ivBackgroundImage = detailsView.findViewById(R.id.background_image);
         tvName = detailsView.findViewById(R.id.name_text_view);

@@ -27,6 +27,16 @@
         app:layout_constraintVertical_bias="0.0"
         android:scaleType="fitXY"/>
 
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"/>
+
     <LinearLayout
         android:id="@+id/birthday_greeting_layout"
         android:layout_width="match_parent"
