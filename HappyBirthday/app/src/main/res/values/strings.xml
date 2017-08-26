@@ -11,6 +11,8 @@
 
     <!--birthday screen strings-->
     <string name="birthday_name">Today %1s is</string>
+    <string name="month_old">Month%1s old</string>
+    <string name="year_old">Year%1s old</string>
 
     <!--picture options-->
     <string name="gallery_select">Select from gallery</string>

@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +86,23 @@ public class BirthdayScreenFragment extends Fragment {
         // Setup the age image
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
         setAgeView(birthday);
+        setUnitsTextView();
 
+    }
+
+    private void setUnitsTextView() {
+        if (monthDifference <= 12) {
+            // Case we're dealing with months
+            String suffix = monthDifference == 1? "" : "s";
+            String text = mainActivity.getString(R.string.month_old, suffix);
+            tvUnits.setText(text);
+        }
+        else {
+            // Case we're dealing with years
+            String suffix = (monthDifference > 12 && monthDifference < 18)? "" : "s";
+            String text = mainActivity.getString(R.string.year_old, suffix);
+            tvUnits.setText(text);
+        }
     }
 
     /**
