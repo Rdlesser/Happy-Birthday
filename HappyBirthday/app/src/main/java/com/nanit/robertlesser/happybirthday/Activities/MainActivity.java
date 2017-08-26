@@ -227,4 +227,7 @@ public class MainActivity extends AppCompatActivity {
         this.magicalPermissions = magicalPermissions;
     }
 
+    public void shareScreen() {
+        
+    }
 }

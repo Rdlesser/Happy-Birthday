@@ -11,6 +11,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
     private LinearLayout smallAgeLayout;
     private LinearLayout bigAgeLayout;
     private ImageView cameraIcon;
+    private View shareLayout;
 
     private MainActivity mainActivity;
 
@@ -204,6 +206,8 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
         ivUnitsImageView = detailsView.findViewById(R.id.units_image_view);
         cameraIcon = detailsView.findViewById(R.id.camera_icon);
         cameraIcon.setOnClickListener(this);
+        shareLayout = detailsView.findViewById(R.id.share_layout);
+        shareLayout.setOnClickListener(this);
     }
 
     /**
@@ -291,6 +295,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
             case R.id.camera_icon:
                 mainActivity.selectImage();
                 break;
+
+            case R.id.share_layout:
+                mainActivity.shareScreen();
         }
     }
 
