@@ -183,7 +183,7 @@ public class BirthdayScreenFragment extends Fragment {
             e.printStackTrace();
         }
         monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
-        if (monthDifference == 18) {
+        if (monthDifference >= 18 && monthDifference < 24) {
             // Special case of 1.5 years old
             switchViewVisibility(smallAgeLayout, bigAgeLayout);
             setImageViewResource("1_half", ivAgeView);
