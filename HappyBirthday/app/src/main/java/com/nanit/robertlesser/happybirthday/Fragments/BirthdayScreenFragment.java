@@ -177,37 +177,47 @@ public class BirthdayScreenFragment extends Fragment {
             e.printStackTrace();
         }
         monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
-        // We'll be working with age and not monthDifference as we'll be using monthDifference again
-        // for the units TextView
-        int age = monthDifference;
-        // Case we need to start counting in years as we've passed 12 months
-        if (monthDifference > 12) {
-            age /= 12;
-        }
-        if (age > 12) {
-            // If the person is older than 12 - we'll need to work with 2 imageViews for the age
-            smallAgeLayout.setVisibility(View.GONE);
-            bigAgeLayout.setVisibility(View.VISIBLE);
-            int tens = age / 10;
-            int units = age % 10;
-            String tensImageId = AGE_IMAGE_PREFIX + tens;
-            String unitsImageId = AGE_IMAGE_PREFIX + units;
-            int id = mainActivity.getResources().
-                    getIdentifier(tensImageId, IMAGE_TYPE, mainActivity.getPackageName());
-            ivTensImageView.setImageResource(id);
-            id = mainActivity.getResources().
-                    getIdentifier(unitsImageId, IMAGE_TYPE, mainActivity.getPackageName());
-            ivUnitsImageView.setImageResource(id);
-
-        }
-        else {
-            // Age of person is less than 13 - we'll work with smallAgeLayout
+        if (monthDifference == 18) {
             bigAgeLayout.setVisibility(View.GONE);
             smallAgeLayout.setVisibility(View.VISIBLE);
-            String imageId = AGE_IMAGE_PREFIX + age;
+            String imageId = AGE_IMAGE_PREFIX + "1_half";
             int id = mainActivity.getResources().
                     getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
             ivAgeView.setImageResource(id);
+        }
+        else {
+            // We'll be working with age and not monthDifference as we'll be using monthDifference again
+            // for the units TextView
+            int age = monthDifference;
+            // Case we need to start counting in years as we've passed 12 months
+            if (monthDifference > 12) {
+                age /= 12;
+            }
+            if (age > 12) {
+                // If the person is older than 12 - we'll need to work with 2 imageViews for the age
+                smallAgeLayout.setVisibility(View.GONE);
+                bigAgeLayout.setVisibility(View.VISIBLE);
+                int tens = age / 10;
+                int units = age % 10;
+                String tensImageId = AGE_IMAGE_PREFIX + tens;
+                String unitsImageId = AGE_IMAGE_PREFIX + units;
+                int id = mainActivity.getResources().
+                        getIdentifier(tensImageId, IMAGE_TYPE, mainActivity.getPackageName());
+                ivTensImageView.setImageResource(id);
+                id = mainActivity.getResources().
+                        getIdentifier(unitsImageId, IMAGE_TYPE, mainActivity.getPackageName());
+                ivUnitsImageView.setImageResource(id);
+
+            }
+            else {
+                // Age of person is less than 13 - we'll work with smallAgeLayout
+                bigAgeLayout.setVisibility(View.GONE);
+                smallAgeLayout.setVisibility(View.VISIBLE);
+                String imageId = AGE_IMAGE_PREFIX + age;
+                int id = mainActivity.getResources().
+                        getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
+                ivAgeView.setImageResource(id);
+            }
         }
     }
 }
