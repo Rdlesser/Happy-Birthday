@@ -20,9 +20,7 @@ import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_DATE;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
@@ -34,11 +32,16 @@ public class BirthdayScreenFragment extends Fragment {
 
     public static final String TAG = BirthdayScreenFragment.class.getSimpleName();
 
+    private static String AGE_IMAGE_PREFIX = "num";
+    private static String IMAGE_TYPE = "drawable";
+
     private View detailsView;
     private ImageView ivPictureImage;
     private ImageView ivBackgroundImage;
     private TextView tvName;
     private ImageView ivAgeView;
+    private ImageView ivTensImageView;
+    private ImageView ivUnitsImageView;
     private TextView tvUnits;
     private LinearLayout smallAgeLayout;
     private LinearLayout bigAgeLayout;
@@ -82,7 +85,7 @@ public class BirthdayScreenFragment extends Fragment {
 
         // Setup the age image
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
-        setAge(birthday);
+        setAgeView(birthday);
         Date birthdayDate = null;
         try {
             birthdayDate = dateFormat.parse(birthday);
@@ -147,6 +150,8 @@ public class BirthdayScreenFragment extends Fragment {
         tvUnits = detailsView.findViewById(R.id.units_text_view);
         smallAgeLayout = detailsView.findViewById(R.id.small_age_layout);
         bigAgeLayout = detailsView.findViewById(R.id.big_age_layout);
+        ivTensImageView = detailsView.findViewById(R.id.tens_image_view);
+        ivUnitsImageView = detailsView.findViewById(R.id.units_image_view);
     }
 
     /**
@@ -163,7 +168,7 @@ public class BirthdayScreenFragment extends Fragment {
      * Set the age image according to the given birthday
      * @param birthday
      */
-    private void setAge(String birthday) {
+    private void setAgeView(String birthday) {
         Date birthdayDate = null;
         try {
             birthdayDate = dateFormat.parse(birthday);
@@ -181,15 +186,27 @@ public class BirthdayScreenFragment extends Fragment {
         }
         if (age > 12) {
             // If the person is older than 12 - we'll need to work with 2 imageViews for the age
+            smallAgeLayout.setVisibility(View.GONE);
+            bigAgeLayout.setVisibility(View.VISIBLE);
+            int tens = age / 10;
+            int units = age % 10;
+            String tensImageId = AGE_IMAGE_PREFIX + tens;
+            String unitsImageId = AGE_IMAGE_PREFIX + units;
+            int id = mainActivity.getResources().
+                    getIdentifier(tensImageId, IMAGE_TYPE, mainActivity.getPackageName());
+            ivTensImageView.setImageResource(id);
+            id = mainActivity.getResources().
+                    getIdentifier(unitsImageId, IMAGE_TYPE, mainActivity.getPackageName());
+            ivUnitsImageView.setImageResource(id);
 
         }
         else {
             // Age of person is less than 13 - we'll work with smallAgeLayout
             bigAgeLayout.setVisibility(View.GONE);
             smallAgeLayout.setVisibility(View.VISIBLE);
-            String imageId = "num" + age;
+            String imageId = AGE_IMAGE_PREFIX + age;
             int id = mainActivity.getResources().
-                    getIdentifier(imageId, "drawable", mainActivity.getPackageName());
+                    getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
             ivAgeView.setImageResource(id);
         }
     }
