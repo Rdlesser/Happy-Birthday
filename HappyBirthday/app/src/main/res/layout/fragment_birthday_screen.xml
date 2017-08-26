@@ -34,8 +34,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ic_close"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginTop="@dimen/close_button_top_left_margin"
+        android:layout_marginStart="@dimen/close_button_top_left_margin"/>
 
     <LinearLayout
         android:id="@+id/birthday_greeting_layout"
@@ -44,20 +44,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="74dp"
-        android:layout_marginRight="74dp"
-        android:orientation="vertical"
-        android:layout_marginStart="74dp"
-        android:layout_marginEnd="74dp">
+        android:layout_marginTop="@dimen/birthday_greeting_layout_margin_top"
+        android:layout_marginLeft="@dimen/birthday_greeting_layout_other_magins"
+        android:layout_marginRight="@dimen/birthday_greeting_layout_other_magins"
+        android:layout_marginStart="@dimen/birthday_greeting_layout_other_magins"
+        android:layout_marginEnd="@dimen/birthday_greeting_layout_other_magins"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/default_margin_top_small"
             android:text="TODAY CHRISTINA IS"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_text_size"
             android:textAlignment="center"
             android:gravity="center|bottom"
             android:lines="2"
@@ -69,7 +69,7 @@
             android:id="@+id/small_age_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/default_margin_top_small"
             android:orientation="horizontal"
             android:weightSum="3"
             android:visibility="gone">
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/left_swirls"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/default_margin_top_large"
                 android:layout_weight="1"/>
 
             <ImageView
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/right_swirls"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/default_margin_top_large"
                 android:layout_weight="1"/>
         </LinearLayout>
 
@@ -100,7 +100,7 @@
             android:id="@+id/big_age_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/default_margin_top_small"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/left_swirls"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/default_margin_top_large"
                 android:layout_weight="1"/>
 
             <ImageView
@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/right_swirls"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/default_margin_top_large"
                 android:layout_weight="1"/>
         </LinearLayout>
 
@@ -137,12 +137,12 @@
             android:id="@+id/units_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/default_margin_top_small"
             android:text="months old!"
             android:textAllCaps="true"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/default_text_size"/>
 
     </LinearLayout>
 
