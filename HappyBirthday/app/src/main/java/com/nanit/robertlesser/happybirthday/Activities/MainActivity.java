@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
     private static String FRAGMENT_TAG = "HappyBirthdayFragment";
+    private static String PHOTO_FILE_NAME = "HappyBirthdayPhoto";
+    private static String SCREENSHOT_FILE_NAME = "HappyBirthdayScreen.jpg";
+    private static String DATE_FORMAT = "dd.MM.yyyy";
 
     ArrayList<String> activePermissions;
     private MagicalPermissions magicalPermissions;
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         activePermissions = new ArrayList<>();
 
-        dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+        dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         MagicalCamera.ORIENTATION_ROTATE_90);
                 photo = magicalCamera.getPhoto();
             }
-            String path = magicalCamera.savePhotoInMemoryDevice(photo, "HappyBirthdayPhoto",
+            String path = magicalCamera.savePhotoInMemoryDevice(photo, PHOTO_FILE_NAME,
                     Bitmap.CompressFormat.JPEG, false);
             Utility.saveStringInPrefs(this, DetailsScreenFragment.BIRTHDAY_PIC_PATH, path);
             fragment.setImage(photo);
@@ -238,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
         Bitmap screenshot = getScreenShot(rootView);
         Utility.changeViewsVisibility(disableViews, VISIBLE);
-        File file = store(screenshot, "HappyBirthdayScreen.jpg");
+        File file = store(screenshot, SCREENSHOT_FILE_NAME);
         Utility.shareImage(this, file);
     }
 
