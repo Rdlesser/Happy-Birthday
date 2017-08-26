@@ -33,7 +33,7 @@ import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragme
 /**
  * A simple {@link Fragment} subclass for the Birthday Screen
  */
-public class BirthdayScreenFragment extends Fragment {
+public class BirthdayScreenFragment extends Fragment implements View.OnClickListener{
 
     public static final String TAG = BirthdayScreenFragment.class.getSimpleName();
 
@@ -174,6 +174,7 @@ public class BirthdayScreenFragment extends Fragment {
      */
     private void findViewsById() {
         ivBtnClose = detailsView.findViewById(R.id.close_button);
+        ivBtnClose.setOnClickListener(this);
         ivPictureImage = detailsView.findViewById(R.id.picture_image);
         ivBackgroundImage = detailsView.findViewById(R.id.background_image);
         tvName = detailsView.findViewById(R.id.name_text_view);
@@ -248,5 +249,14 @@ public class BirthdayScreenFragment extends Fragment {
         int id = mainActivity.getResources().
                 getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
         viewToSet.setImageResource(id);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.close_button:
+                mainActivity.onBackPressed();
+                break;
+        }
     }
 }
