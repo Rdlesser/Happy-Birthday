@@ -4,6 +4,9 @@ package com.nanit.robertlesser.happybirthday.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -18,12 +21,15 @@ import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.R.attr.path;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_DATE;
 import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_NAME;
+import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragment.BIRTHDAY_PIC_PATH;
 
 /**
  * A simple {@link Fragment} subclass for the Birthday Screen
@@ -83,11 +89,29 @@ public class BirthdayScreenFragment extends Fragment {
         String name = sharedPreferences.getString(BIRTHDAY_NAME, "");
         setName(name);
 
-        // Setup the age image
+        // Setup the age layout
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
         setAgeView(birthday);
         setUnitsTextView();
 
+        // Setup the picture
+        String path = sharedPreferences.getString(BIRTHDAY_PIC_PATH, "");
+        setPictureImageView(path);
+
+    }
+
+    private void setPictureImageView(String path) {
+        File imgFile = new  File(path);
+        Bitmap bitmap = null;
+        if (imgFile.exists()) {
+            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        }
+        if (bitmap != null) {
+            Bitmap pictureBitmap = ((BitmapDrawable)ivPictureImage.getDrawable()).getBitmap();
+            int height = pictureBitmap.getHeight();
+            int width = pictureBitmap.getWidth();
+            ivPictureImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, width, height, false));
+        }
     }
 
     private void setUnitsTextView() {
