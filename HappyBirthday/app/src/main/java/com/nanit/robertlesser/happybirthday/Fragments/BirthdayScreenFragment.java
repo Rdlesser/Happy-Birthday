@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanit.robertlesser.happybirthday.Activities.MainActivity;
+import com.nanit.robertlesser.happybirthday.Interfaces.HappyBirthdayFragment;
 import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
@@ -33,7 +35,8 @@ import static com.nanit.robertlesser.happybirthday.Fragments.DetailsScreenFragme
 /**
  * A simple {@link Fragment} subclass for the Birthday Screen
  */
-public class BirthdayScreenFragment extends Fragment implements View.OnClickListener{
+public class BirthdayScreenFragment extends Fragment implements View.OnClickListener,
+        HappyBirthdayFragment{
 
     public static final String TAG = BirthdayScreenFragment.class.getSimpleName();
 
@@ -51,6 +54,7 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
     private TextView tvUnits;
     private LinearLayout smallAgeLayout;
     private LinearLayout bigAgeLayout;
+    private ImageView cameraIcon;
 
     private MainActivity mainActivity;
 
@@ -112,10 +116,7 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
             bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
         }
         if (bitmap != null) {
-            Bitmap pictureBitmap = ((BitmapDrawable)ivPictureImage.getDrawable()).getBitmap();
-            int height = pictureBitmap.getHeight();
-            int width = pictureBitmap.getWidth();
-            ivPictureImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, width, height, false));
+            setImage(bitmap);
         }
     }
 
@@ -192,6 +193,8 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
         bigAgeLayout = detailsView.findViewById(R.id.big_age_layout);
         ivTensImageView = detailsView.findViewById(R.id.tens_image_view);
         ivUnitsImageView = detailsView.findViewById(R.id.units_image_view);
+        cameraIcon = detailsView.findViewById(R.id.camera_icon);
+        cameraIcon.setOnClickListener(this);
     }
 
     /**
@@ -277,7 +280,16 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.camera_icon:
+                mainActivity.selectImage();
                 break;
         }
+    }
+
+    @Override
+    public void setImage(Bitmap bitmap) {
+        Bitmap pictureBitmap = ((BitmapDrawable)ivPictureImage.getDrawable()).getBitmap();
+        int height = pictureBitmap.getHeight();
+        int width = pictureBitmap.getWidth();
+        ivPictureImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, width, height, false));
     }
 }

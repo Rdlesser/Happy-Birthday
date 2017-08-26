@@ -33,6 +33,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private int RESIZE_PHOTO_PIXELS_PERCENTAGE = 80;
+    private static String FRAGMENT_TAG = "HappyBirthdayFragment";
 
     ArrayList<String> activePermissions;
     private MagicalPermissions magicalPermissions;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         DetailsScreenFragment fragment = new DetailsScreenFragment();
-        fragmentTransaction.add(R.id.fragment_container, fragment, DetailsScreenFragment.TAG);
+        fragmentTransaction.add(R.id.fragment_container, fragment, FRAGMENT_TAG);
         fragmentTransaction.commit();
     }
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             HappyBirthdayFragment fragment = (HappyBirthdayFragment) getSupportFragmentManager().
-                    findFragmentByTag(DetailsScreenFragment.TAG);
+                    findFragmentByTag(FRAGMENT_TAG);
             magicalCamera.resultPhoto(requestCode, resultCode, data);
             Bitmap photo = magicalCamera.getPhoto();
             if (photo.getWidth() > photo.getHeight()){
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        fragmentTransaction.replace(R.id.fragment_container, birthdayFragment, BirthdayScreenFragment.TAG);
+        fragmentTransaction.replace(R.id.fragment_container, birthdayFragment, FRAGMENT_TAG);
         fragmentTransaction.addToBackStack(null);
 
         // Commit the transaction
