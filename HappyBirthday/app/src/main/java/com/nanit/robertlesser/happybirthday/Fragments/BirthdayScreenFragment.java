@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,16 +87,6 @@ public class BirthdayScreenFragment extends Fragment {
         // Setup the age image
         String birthday = sharedPreferences.getString(BIRTHDAY_DATE, "");
         setAgeView(birthday);
-        Date birthdayDate = null;
-        try {
-            birthdayDate = dateFormat.parse(birthday);
-            //catch exception
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
-
 
     }
 
@@ -178,12 +169,9 @@ public class BirthdayScreenFragment extends Fragment {
         }
         monthDifference = Utility.getDateDiffMonths(birthdayDate, new Date());
         if (monthDifference == 18) {
-            bigAgeLayout.setVisibility(View.GONE);
-            smallAgeLayout.setVisibility(View.VISIBLE);
-            String imageId = AGE_IMAGE_PREFIX + "1_half";
-            int id = mainActivity.getResources().
-                    getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
-            ivAgeView.setImageResource(id);
+            // Special case of 1.5 years old
+            switchViewVisibility(smallAgeLayout, bigAgeLayout);
+            setImageViewResource("1_half", ivAgeView);
         }
         else {
             // We'll be working with age and not monthDifference as we'll be using monthDifference again
@@ -195,29 +183,30 @@ public class BirthdayScreenFragment extends Fragment {
             }
             if (age > 12) {
                 // If the person is older than 12 - we'll need to work with 2 imageViews for the age
-                smallAgeLayout.setVisibility(View.GONE);
-                bigAgeLayout.setVisibility(View.VISIBLE);
+                switchViewVisibility(bigAgeLayout, smallAgeLayout);
                 int tens = age / 10;
                 int units = age % 10;
-                String tensImageId = AGE_IMAGE_PREFIX + tens;
-                String unitsImageId = AGE_IMAGE_PREFIX + units;
-                int id = mainActivity.getResources().
-                        getIdentifier(tensImageId, IMAGE_TYPE, mainActivity.getPackageName());
-                ivTensImageView.setImageResource(id);
-                id = mainActivity.getResources().
-                        getIdentifier(unitsImageId, IMAGE_TYPE, mainActivity.getPackageName());
-                ivUnitsImageView.setImageResource(id);
+                setImageViewResource(String.valueOf(tens), ivTensImageView);
+                setImageViewResource(String.valueOf(units), ivUnitsImageView);
 
             }
             else {
                 // Age of person is less than 13 - we'll work with smallAgeLayout
-                bigAgeLayout.setVisibility(View.GONE);
-                smallAgeLayout.setVisibility(View.VISIBLE);
-                String imageId = AGE_IMAGE_PREFIX + age;
-                int id = mainActivity.getResources().
-                        getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
-                ivAgeView.setImageResource(id);
+                switchViewVisibility(smallAgeLayout, bigAgeLayout);
+                setImageViewResource(String.valueOf(age), ivAgeView);
             }
         }
+    }
+
+    private void switchViewVisibility(View toShow, View toHide) {
+        toHide.setVisibility(View.GONE);
+        toShow.setVisibility(View.VISIBLE);
+    }
+
+    private void setImageViewResource(String imageIdentifier, ImageView viewToSet) {
+        String imageId = AGE_IMAGE_PREFIX + imageIdentifier;
+        int id = mainActivity.getResources().
+                getIdentifier(imageId, IMAGE_TYPE, mainActivity.getPackageName());
+        viewToSet.setImageResource(id);
     }
 }
