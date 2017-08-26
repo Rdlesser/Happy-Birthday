@@ -297,7 +297,12 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.share_layout:
-                mainActivity.shareScreen();
+                View[] viewsToDisable = new View[] {
+                        ivBtnClose,
+                        shareLayout,
+                        cameraIcon
+                };
+                mainActivity.shareScreen(viewsToDisable);
         }
     }
 

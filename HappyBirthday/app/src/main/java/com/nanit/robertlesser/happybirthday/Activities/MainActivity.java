@@ -3,24 +3,19 @@ package com.nanit.robertlesser.happybirthday.Activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
@@ -31,12 +26,13 @@ import com.nanit.robertlesser.happybirthday.R;
 import com.nanit.robertlesser.happybirthday.Utilities.Utility;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.nanit.robertlesser.happybirthday.Utilities.Utility.getScreenShot;
 import static com.nanit.robertlesser.happybirthday.Utilities.Utility.store;
 
@@ -237,10 +233,12 @@ public class MainActivity extends AppCompatActivity {
         this.magicalPermissions = magicalPermissions;
     }
 
-    public void shareScreen() {
+    public void shareScreen(View[] disableViews) {
+        Utility.changeViewsVisibility(disableViews, INVISIBLE);
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
         Bitmap screenshot = getScreenShot(rootView);
-        File file = store(screenshot, "HappyBirthdayScreenShare.jpg");
+        Utility.changeViewsVisibility(disableViews, VISIBLE);
+        File file = store(screenshot, "HappyBirthdayScreen.jpg");
         Utility.shareImage(this, file);
     }
 

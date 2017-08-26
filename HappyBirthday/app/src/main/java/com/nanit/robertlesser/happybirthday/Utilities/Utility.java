@@ -189,4 +189,12 @@ public class Utility {
         }
     }
 
+    public static void changeViewsVisibility(View[] views, int visibility) {
+
+        for (View view : views) {
+            view.setVisibility(visibility);
+        }
+
+    }
+
 }
