@@ -100,6 +100,11 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
 
     }
 
+    /**
+     * Set up the image for ivPictureImage with the picture chosen in the details screen if
+     * exists
+     * @param path The path to the image chosen in the details screen
+     */
     private void setPictureImageView(String path) {
         File imgFile = new  File(path);
         Bitmap bitmap = null;
@@ -114,6 +119,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
         }
     }
 
+    /**
+     * Set up the units text view according to monthDifference
+     */
     private void setUnitsTextView() {
         if (monthDifference <= 12) {
             // Case we're dealing with months
@@ -239,11 +247,21 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
         }
     }
 
+    /**
+     * Switch between 2 views' visibility
+     * @param toShow The View that's visibility we would like to change to Visible
+     * @param toHide The View that's visibility we would like to change to GONE
+     */
     private void switchViewVisibility(View toShow, View toHide) {
         toHide.setVisibility(View.GONE);
         toShow.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Set the image resource of an ImageView according to a given string
+     * @param imageIdentifier The identifier used for identify the image name
+     * @param viewToSet The view that we would like to set
+     */
     private void setImageViewResource(String imageIdentifier, ImageView viewToSet) {
         String imageId = AGE_IMAGE_PREFIX + imageIdentifier;
         int id = mainActivity.getResources().
