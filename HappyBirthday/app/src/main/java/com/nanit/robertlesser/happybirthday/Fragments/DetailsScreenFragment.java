@@ -213,58 +213,13 @@ public class DetailsScreenFragment extends Fragment implements View.OnFocusChang
                 break;
 
             case R.id.picture_button:
-                selectImage();
+                mainActivity.selectImage();
                 break;
 
             case R.id.show_birthday_button:
                 mainActivity.displayBirthdayScreen();
                 break;
         }
-    }
-
-    /**
-     * Method for selecting the image for the preview image view
-     */
-    private void selectImage() {
-
-        final String[] pictureOptions = mainActivity.getResources().
-                getStringArray(R.array.picture_options);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-        builder.setTitle(R.string.picture);
-        builder.setItems(pictureOptions, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int item) {
-                if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
-                    String[] askedPermissions = new String[] {
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                    };
-                    boolean hasPermission = Utility.checkPermission(
-                            mainActivity, askedPermissions);
-                    mainActivity.setUserChosenTask(getString(R.string.gallery_select));
-                    if (hasPermission) {
-                        mainActivity.startGalleryIntent();
-                    }
-                }
-                else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
-                    String[] askedPermissions = new String[] {
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    };
-                    boolean hasPermission = Utility.checkPermission(
-                            mainActivity, askedPermissions);
-                    mainActivity.setUserChosenTask(getString(R.string.take_photo));
-                    if (hasPermission){
-                        mainActivity.startCameraIntent();
-                    }
-                }
-                else if (pictureOptions[item].equals(getString(R.string.cancel))) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-        builder.show();
-
     }
 
     @Override

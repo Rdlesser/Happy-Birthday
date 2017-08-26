@@ -275,6 +275,9 @@ public class BirthdayScreenFragment extends Fragment implements View.OnClickList
             case R.id.close_button:
                 mainActivity.onBackPressed();
                 break;
+
+            case R.id.camera_icon:
+                break;
         }
     }
 }

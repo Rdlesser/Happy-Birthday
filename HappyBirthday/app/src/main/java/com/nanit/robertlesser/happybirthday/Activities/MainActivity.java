@@ -1,6 +1,10 @@
 package com.nanit.robertlesser.happybirthday.Activities;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -34,12 +38,15 @@ public class MainActivity extends AppCompatActivity {
     private MagicalPermissions magicalPermissions;
     private MagicalCamera magicalCamera;
 
+    Context context;
+
     String userChosenTask = "";
     private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_main);
         activePermissions = new ArrayList<>();
 
@@ -94,6 +101,51 @@ public class MainActivity extends AppCompatActivity {
             Utility.saveStringInPrefs(this, DetailsScreenFragment.BIRTHDAY_PIC_PATH, path);
             fragment.setImage(photo);
         }
+
+    }
+
+    /**
+     * Method for selecting the image for the preview image view
+     */
+    public void selectImage() {
+
+        final String[] pictureOptions = getResources().
+                getStringArray(R.array.picture_options);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.picture);
+        builder.setItems(pictureOptions, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int item) {
+                if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
+                    String[] askedPermissions = new String[] {
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    };
+                    boolean hasPermission = Utility.checkPermission(
+                            context, askedPermissions);
+                    setUserChosenTask(getString(R.string.gallery_select));
+                    if (hasPermission) {
+                        startGalleryIntent();
+                    }
+                }
+                else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
+                    String[] askedPermissions = new String[] {
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    };
+                    boolean hasPermission = Utility.checkPermission(
+                            context, askedPermissions);
+                    setUserChosenTask(getString(R.string.take_photo));
+                    if (hasPermission){
+                        startCameraIntent();
+                    }
+                }
+                else if (pictureOptions[item].equals(getString(R.string.cancel))) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
 
     }
 
