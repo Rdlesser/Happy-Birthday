@@ -1,15 +1,19 @@
 package com.nanit.robertlesser.happybirthday.Utilities;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -42,37 +46,46 @@ public class Utility {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean checkPermission(final Context context, String[] permissions) {
 
-        MainActivity mainActivity = (MainActivity) context;
-        ArrayList<String> activePermissions = mainActivity.getActivePermissions();
-        ArrayList<String> missingPermissions = new ArrayList<>();
-
         boolean haveAllPermissions = true;
-        // Narrow down the permissions to only the missing ones
+        ArrayList<String> missingPermissions = new ArrayList<>();
+        MainActivity mainActivity = (MainActivity) context;
         for (String permission : permissions) {
-            if (!activePermissions.contains(permission)) {
-                missingPermissions.add(permission);
+            if (ContextCompat.checkSelfPermission(mainActivity, permission) != PackageManager.PERMISSION_GRANTED) {
                 haveAllPermissions = false;
-            }
-        }
-
-        if (!haveAllPermissions) {
-            String[] askingPermissions = missingPermissions.toArray(permissions);
-            MagicalPermissions newPermissions = new MagicalPermissions(mainActivity, askingPermissions);
-            mainActivity.setMagicalPermissions(newPermissions);
-
-            //Now ask for the missing permissions
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(mainActivity,
+                        permission)) {
 
                 }
-            };
-            for (String permission : askingPermissions) {
-                newPermissions.askPermissions(runnable, permission);
+                else {
+                    missingPermissions.add(permission);
+                }
             }
         }
-
+        if (!haveAllPermissions) {
+            String[] permissionsArray = missingPermissions.toArray(permissions);
+            ActivityCompat.requestPermissions(mainActivity,
+                    permissionsArray,
+                    123);
+        }
         return haveAllPermissions;
+//        ArrayList<String> activePermissions = mainActivity.getActivePermissions();
+//        ArrayList<String> missingPermissions = new ArrayList<>();
+//
+//        boolean haveAllPermissions = true;
+//        // Narrow down the permissions to only the missing ones
+//        for (String permission : permissions) {
+//            if (!activePermissions.contains(permission)) {
+//                missingPermissions.add(permission);
+//                haveAllPermissions = false;
+//            }
+//        }
+//
+//        if (!haveAllPermissions) {
+//            String [] permissionArray = missingPermissions.toArray(permissions);
+//            ActivityCompat.requestPermissions(mainActivity, permissionArray, 1);
+//        }
+//
+//        return haveAllPermissions;
     }
 
     /**

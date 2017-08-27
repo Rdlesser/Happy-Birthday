@@ -73,14 +73,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        Map<String, Boolean> map = magicalPermissions.permissionResult(requestCode, permissions, grantResults);
+
         boolean allGranted = true;
-        for (String permission : map.keySet()) {
-            if (map.get(permission)) {
-                activePermissions.add(permission);
-            }
-            else {
-                allGranted = map.get(permission);
+        if (grantResults.length > 0) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    allGranted = false;
+                }
+                else {
+                    activePermissions.add(permissions[i]);
+                }
             }
         }
         if (allGranted) {
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int item) {
                 if (pictureOptions[item].equals(getString(R.string.gallery_select))) {
                     String[] askedPermissions = new String[] {
-                            Manifest.permission.READ_EXTERNAL_STORAGE
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
                     };
                     boolean hasPermission = Utility.checkPermission(
                             context, askedPermissions);
@@ -140,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (pictureOptions[item].equals(getString(R.string.take_photo))) {
                     String[] askedPermissions = new String[] {
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            Manifest.permission.CAMERA
                     };
                     boolean hasPermission = Utility.checkPermission(
                             context, askedPermissions);
@@ -240,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         Utility.changeViewsVisibility(disableViews, INVISIBLE);
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
         String[] readWritePermission = new String[] {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
         boolean hasPermission = Utility.checkPermission(this, readWritePermission);
